@@ -3,4 +3,8 @@ Boneshatter Juggernaut
 - skill gems
 - gear
 
-one more change
+Atlas Passives
+- quant points
+- sextants
+- scarabs
+- kirac missions
