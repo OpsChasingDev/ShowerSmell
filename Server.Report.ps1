@@ -5,8 +5,8 @@ $ComputerInfo = Get-ComputerInfo
 $DiskInfo = Get-Disk
 
 $obj = [PSCustomObject]@{
-    ComputerName = $ComputerInfo.CsDNSHostName
-    OsVersion = $ComputerInfo.OsVersion
-    LogicalDiskCount = $DiskInfo.count
+    Barney = "$($ComputerInfo.CsDNSHostName) Dinosaur"
+    HotSauce = $ComputerInfo.OsVersion
+    Rollerskates = $DiskInfo.count
 }
 Write-Output $obj
