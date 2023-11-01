@@ -11,6 +11,6 @@ $obj = [PSCustomObject]@{
     MachineName = $ComputerInfo.CsDNSHostName
     OSVersion = $ComputerInfo.OsVersion
     LogicalDiskCount = $DiskInfo.count
-    FreeSpace = $FreeSpace.Free
+    'FreeSpace_GB' = $FreeSpace.Free / 1gb
 }
 Write-Output $obj
