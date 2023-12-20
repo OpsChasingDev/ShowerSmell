@@ -1,3 +1,15 @@
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory)]
+    [ValidateSet('C','D','G')]
+    [string]
+    $DriveLetter,
+
+    [Parameter(Mandatory)]
+    [int]
+    $DriveSpaceRounding
+)
+
 # get computer name
 $ComputerInfo = Get-ComputerInfo
 
@@ -5,7 +17,7 @@ $ComputerInfo = Get-ComputerInfo
 $DiskInfo = Get-Disk
 
 # get free system space
-$FreeSpace = Get-PSDrive | Where-Object { $_.Name -eq 'C' }
+$FreeSpace = Get-PSDrive -Name $DriveLetter
 
 # get number of cores
 $CPUCore = Get-CimInstance CIM_Processor
@@ -17,11 +29,12 @@ foreach ($item in $Memory) {
     $MemorySum += $item.Capacity
 }
  
+# combine the informatio nto a custom object and write to output
 $obj = [PSCustomObject]@{
     MachineName      = $ComputerInfo.CsDNSHostName
     OSVersion        = $ComputerInfo.OsVersion
     LogicalDiskCount = $DiskInfo.count
-    FreeSpace_GB     = [System.Math]::Round(($FreeSpace.Free / 1gb), 1)
+    FreeSpace_GB     = [System.Math]::Round(($FreeSpace.Free / 1gb), $DriveSpaceRounding)
     CPUCore          = $CPUCore.NumberOfCores
     TotalMemory      = $MemorySum / 1gb
 }
